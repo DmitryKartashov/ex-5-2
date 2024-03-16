@@ -27,40 +27,40 @@ public class ProductController {
 
     @PostMapping("/create")
     public ProductResp addProduct(@RequestBody @Valid ProductReq addProduct) {
-//        if (addProduct.getInstanceId() == null) {
-//            String productNumber = addProduct.getContractNumber();
-//            String registerType = addProduct.getRegisterType();
-//            List<String> agreementNumber = productService.getNumbers(addProduct);
-//
-//            if (productService.productByNumber(productNumber).isPresent()) {
-//                throw new DuplicateProductException("Договор с номером " + addProduct.getContractNumber() + " уже существует");
-//            }
-//
-//            Optional<String> checkRegisterType = productService.checkRegisterType(registerType);
-//
-//            if (checkRegisterType.isPresent()) {
-//                throw new RegisterNotFountException(checkRegisterType.get());
-//            }
-//
-//            Optional<List<String>> errorMsg = productService.findDuplicateAgreements(agreementNumber);
-//            if (errorMsg.isPresent()) {
-//                throw new DuplicateAgreementException(errorMsg.get());
-//            }
-//
-//
-//            return productService.addProduct(addProduct);
-//        } else {
-//            if (productService.findProduct(addProduct.getInstanceId()).isPresent()) {
-//                List<String> agreementNumber = productService.getNumbers(addProduct);
-//
-//                Optional<List<String>> errorMsg = productService.findDuplicateAgreements(agreementNumber);
-//                if (errorMsg.isPresent()) {
-//                    throw new DuplicateAgreementException(errorMsg.get());
-//                }
-//                return productService.addAgreements(addProduct);
-//            } else {
-//                throw new ProductNotFoundException("Для регистра не найден продукт с ID " + addProduct.getInstanceId());
-//            }
-//        }
-//    }
+        if (addProduct.getInstanceId() == null) {
+            String productNumber = addProduct.getContractNumber();
+            String registerType = addProduct.getRegisterType();
+            List<String> agreementNumber = productService.getNumbers(addProduct);
+
+            if (productService.productByNumber(productNumber).isPresent()) {
+                throw new DuplicateProductException("Договор с номером " + addProduct.getContractNumber() + " уже существует");
+            }
+
+            Optional<String> checkRegisterType = productService.checkRegisterType(registerType);
+
+            if (checkRegisterType.isPresent()) {
+                throw new RegisterNotFountException(checkRegisterType.get());
+            }
+
+            Optional<List<String>> errorMsg = productService.findDuplicateAgreements(agreementNumber);
+            if (errorMsg.isPresent()) {
+                throw new DuplicateAgreementException(errorMsg.get());
+            }
+
+
+            return productService.addProduct(addProduct);
+        } else {
+            if (productService.findProduct(addProduct.getInstanceId()).isPresent()) {
+                List<String> agreementNumber = productService.getNumbers(addProduct);
+
+                Optional<List<String>> errorMsg = productService.findDuplicateAgreements(agreementNumber);
+                if (errorMsg.isPresent()) {
+                    throw new DuplicateAgreementException(errorMsg.get());
+                }
+                return productService.addAgreements(addProduct);
+            } else {
+                throw new ProductNotFoundException("Для регистра не найден продукт с ID " + addProduct.getInstanceId());
+            }
+        }
+    }
 }
